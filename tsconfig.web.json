@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "rootDir": "./web",
+    "outDir": "./public/js",
+    "target": "es2022",
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "lib": ["es2022", "dom"],
+    "types": [],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true
+  },
+  "include": ["web/**/*"]
+}

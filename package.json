@@ -6,10 +6,12 @@
   "directories": {
     "doc": "docs"
   },
-  "scripts": {
+"scripts": {
   "dev": "tsx watch src/servidor.ts",
+  "dev:web": "tsc -p tsconfig.web.json --watch",
+  "build:web": "tsc -p tsconfig.web.json",
+  "build": "tsc && tsc -p tsconfig.web.json",
   "seed": "tsx src/seed.ts",
-  "build": "tsc",
   "start": "node dist/servidor.js",
   "test": "tsx --test src/visibilidade.test.ts"
 },
