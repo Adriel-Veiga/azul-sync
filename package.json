@@ -7,8 +7,12 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "dev": "tsx watch src/servidor.ts",
+  "seed": "tsx src/seed.ts",
+  "build": "tsc",
+  "start": "node dist/servidor.js",
+  "test": "tsx --test src/visibilidade.test.ts"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Adriel-Veiga/azul-sync.git"
