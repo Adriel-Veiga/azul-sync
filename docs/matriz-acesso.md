@@ -8,6 +8,7 @@ Cada perfil visualiza apenas o recorte da ocorrência relevante para a sua atua�
 | recomendacao_operacional (remanejamento e suporte) | Sim | Sim | Não |
 | mensagem_cliente (texto simplificado) | Sim | Sim | Sim |
 | atualizacoes (histórico interno) | Sim | Sim | Não |
+| status da ocorrência | Sim | Sim | Sim |
 
 ## Princípios
 

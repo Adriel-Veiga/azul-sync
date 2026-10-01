@@ -17,13 +17,24 @@ CREATE TABLE voos (
   numero VARCHAR(10) NOT NULL,
   origem VARCHAR(3) NOT NULL,
   destino VARCHAR(3) NOT NULL,
-  status VARCHAR(30) NOT NULL
+  status VARCHAR(20) NOT NULL DEFAULT 'NORMAL'
+    CHECK (status IN ('NORMAL', 'ATRASADO', 'CANCELADO', 'REACOMODADO'))
+);
+
+CREATE TABLE passageiros_voos (
+  usuario_id INTEGER NOT NULL,
+  voo_id INTEGER NOT NULL,
+  PRIMARY KEY (usuario_id, voo_id),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+  FOREIGN KEY (voo_id) REFERENCES voos(id)
 );
 
 CREATE TABLE ocorrencias (
   id INTEGER PRIMARY KEY,
   voo_id INTEGER NOT NULL,
   tipo VARCHAR(50) NOT NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'ABERTA'
+    CHECK (status IN ('ABERTA', 'EM_ANDAMENTO', 'RESOLVIDA')),
   detalhe_tecnico TEXT NOT NULL,
   recomendacao_operacional TEXT,
   mensagem_cliente TEXT,
