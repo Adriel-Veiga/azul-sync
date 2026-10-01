@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Azul Sync</title>
+  <link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+  <header class="topo">
+    <h1>Azul <span>Sync</span></h1>
+    <div id="usuario" hidden>
+      <span id="usuario-nome"></span>
+      <span id="usuario-perfil" class="selo"></span>
+      <button id="botao-sair" type="button">Sair</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="tela-login" class="caixa">
+      <h2>Entrar</h2>
+      <form id="form-login">
+        <label>E-mail
+          <input id="email" type="email" required autocomplete="username">
+        </label>
+        <label>Senha
+          <input id="senha" type="password" required autocomplete="current-password">
+        </label>
+        <button type="submit">Entrar</button>
+      </form>
+      <p id="erro-login" class="erro" hidden></p>
+      <div class="demo">
+        <p>Acesso de demonstração (dados fictícios)</p>
+        <button type="button" data-email="cliente@azulsync.test">Cliente</button>
+        <button type="button" data-email="atendimento@azulsync.test">Atendimento</button>
+        <button type="button" data-email="cco@azulsync.test">Manutenção / CCO</button>
+      </div>
+    </section>
+
+    <section id="tela-painel" hidden>
+      <div class="barra">
+        <h2 id="titulo-painel"></h2>
+        <div id="acoes" hidden>
+          <button id="botao-simular" type="button">Simular ocorrência</button>
+        </div>
+      </div>
+      <p id="aviso" class="erro" hidden></p>
+      <div id="lista"></div>
+      <p class="rodape">Atualização automática a cada 3 s · <span id="ultima-atualizacao"></span></p>
+    </section>
+  </main>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
