@@ -1,15 +1,17 @@
 export type Perfil = 'MANUTENCAO_CCO' | 'ATENDIMENTO_COMERCIAL' | 'CLIENTE';
+export type StatusOcorrencia = 'ABERTA' | 'EM_ANDAMENTO' | 'RESOLVIDA';
+export type StatusVoo = 'NORMAL' | 'ATRASADO' | 'CANCELADO' | 'REACOMODADO';
 
 export interface Voo {
   numero: string;
   origem: string;
   destino: string;
-  status: string;
+  status: StatusVoo;
 }
 
 export interface Ocorrencia {
   id: number;
-  status: string;
+  status: StatusOcorrencia;
   voo: Voo;
   mensagem_cliente: string | null;
   criada_em: string;

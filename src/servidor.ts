@@ -62,6 +62,14 @@ const SELECT_OCORRENCIAS = `
   SELECT o.*, v.numero AS voo_numero, v.origem, v.destino, v.status AS voo_status
   FROM ocorrencias o JOIN voos v ON v.id = o.voo_id`;
 
+type AtualizacaoComOcorrencia = {
+  ocorrencia_id: number;
+  id: number;
+  texto: string;
+  criada_em: string;
+  autor: string;
+};
+
 app.get('/api/ocorrencias', autenticar, (_req, res) => {
   const sessao = res.locals.sessao as Sessao;
   const linhas = (
@@ -77,6 +85,21 @@ app.get('/api/ocorrencias', autenticar, (_req, res) => {
   ) as LinhaOcorrencia[];
 
   res.json(linhas.map((linha) => filtrarOcorrencia(linha, sessao.perfil)));
+});
+
+app.get('/api/atualizacoes', autenticar, exigirPerfil('MANUTENCAO_CCO', 'ATENDIMENTO_COMERCIAL'), (_req, res) => {
+  const linhas = db
+    .prepare(
+      `SELECT a.ocorrencia_id, a.id, a.texto, a.criada_em, u.nome AS autor
+       FROM atualizacoes a JOIN usuarios u ON u.id = a.autor_id
+       ORDER BY a.ocorrencia_id, a.id`
+    )
+    .all() as AtualizacaoComOcorrencia[];
+  const atualizacoes: Record<number, Omit<AtualizacaoComOcorrencia, 'ocorrencia_id'>[]> = {};
+  for (const { ocorrencia_id, ...atualizacao } of linhas) {
+    (atualizacoes[ocorrencia_id] ??= []).push(atualizacao);
+  }
+  res.json(atualizacoes);
 });
 
 app.post('/api/ocorrencias', autenticar, exigirPerfil('MANUTENCAO_CCO'), (req, res) => {
