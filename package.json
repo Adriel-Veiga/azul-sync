@@ -1,7 +1,7 @@
 {
   "name": "azul-sync",
   "version": "1.0.0",
-  "description": "",
+  "description": "Hub de comunicação interáreas em tempo real para ocorrências operacionais",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -21,8 +21,8 @@
     "url": "git+https://github.com/Adriel-Veiga/azul-sync.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Adriel Veiga",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Adriel-Veiga/azul-sync/issues"
   },
