@@ -1,3 +1,4 @@
+//GERADOR DE OCORRÊNCIAS 
 import { api } from './api.js';
 const MODELOS = [
     {

@@ -42,6 +42,7 @@ export function obterSessao() {
     }
     return null;
 }
+// faz a requisição para o servidor e retorna o JSON decodificado
 export async function api(caminho, opcoes = {}) {
     const sessao = obterSessao();
     const cabecalhos = new Headers({ Accept: 'application/json' });
