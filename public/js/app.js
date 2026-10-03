@@ -1,3 +1,4 @@
+//INTERFACE DE LOGIN E DO PAINEL DE OCORRÊNCIAS
 import { api, definirAoExpirar, definirSessao, obterSessao } from './api.js';
 import { simularOcorrencia } from './simulacao.js';
 const INTERVALO_MS = 3000;
@@ -23,7 +24,7 @@ const ROTULOS = {
 };
 let ultimoEstado = '';
 let temporizador;
-// ---------- utilitários (textContent evita injeção de HTML/XSS) ----------
+//funções auxiliares para criar elementos HTML, buscar elementos existentes e formatar dados
 function el(tag, classe = '', texto) {
     const elemento = document.createElement(tag);
     if (classe) {
@@ -58,7 +59,7 @@ function mostrarAviso(texto) {
     aviso.textContent = texto ?? '';
     aviso.hidden = texto === null;
 }
-// ---------- login e sessão ----------
+//login, logout e carregamento do painel
 async function entrar(email, senha) {
     const erro = $('erro-login');
     erro.hidden = true;
@@ -95,7 +96,7 @@ function sair() {
     mostrarAviso(null);
     entrada('senha').value = '';
 }
-// ---------- carregamento e renderização ----------
+//carregamento e renderização do painel
 async function carregar() {
     const sessao = obterSessao();
     if (!sessao) {
@@ -206,7 +207,7 @@ function criarFormAtualizacao(ocorrenciaId) {
     linha.append(campo, botao);
     return linha;
 }
-// ---------- inicialização ----------
+// inicialização: registra eventos e verifica se há sessão válida na aba
 function inicializar() {
     $('form-login').addEventListener('submit', (ev) => {
         ev.preventDefault();
