@@ -1,3 +1,4 @@
+//INTERFACE DE LOGIN E DO PAINEL DE OCORRÊNCIAS
 import { api, definirAoExpirar, definirSessao, obterSessao } from './api.js';
 import { simularOcorrencia } from './simulacao.js';
 import type { Atualizacao, Ocorrencia, Perfil, Sessao } from './tipos.js';
@@ -30,7 +31,7 @@ const ROTULOS: Record<string, string> = {
 let ultimoEstado = '';
 let temporizador: number | undefined;
 
-// ---------- utilitários (textContent evita injeção de HTML/XSS) ----------
+//funções auxiliares para criar elementos HTML, buscar elementos existentes e formatar dados
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -76,7 +77,7 @@ function mostrarAviso(texto: string | null): void {
   aviso.hidden = texto === null;
 }
 
-// ---------- login e sessão ----------
+//login, logout e carregamento do painel
 
 async function entrar(email: string, senha: string): Promise<void> {
   const erro = $('erro-login');
@@ -116,7 +117,7 @@ function sair(): void {
   entrada('senha').value = '';
 }
 
-// ---------- carregamento e renderização ----------
+//carregamento e renderização do painel
 
 async function carregar(): Promise<void> {
   const sessao = obterSessao();
@@ -246,7 +247,7 @@ function criarFormAtualizacao(ocorrenciaId: number): HTMLElement {
   return linha;
 }
 
-// ---------- inicialização ----------
+// inicialização: registra eventos e verifica se há sessão válida na aba
 
 function inicializar(): void {
   $('form-login').addEventListener('submit', (ev) => {

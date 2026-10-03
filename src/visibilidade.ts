@@ -1,5 +1,6 @@
+//CORTA OS CAMIMNNHOS CONFORME O PERFIL DO USUÁRIO
 import type { LinhaOcorrencia, OcorrenciaVisivel, PerfilNome } from './tipos';
-
+// Filtra os campos de uma ocorrência com base no perfil do usuário
 export function filtrarOcorrencia(o: LinhaOcorrencia, perfil: PerfilNome): OcorrenciaVisivel {
   const base: OcorrenciaVisivel = {
     id: o.id,

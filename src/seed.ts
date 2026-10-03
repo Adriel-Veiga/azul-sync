@@ -1,3 +1,4 @@
+//DADOS FICTÍCIOS PARA TESTES
 import { db, recriarBanco } from './banco';
 import { gerarHash } from './seguranca';
 import { gerarMensagemCliente } from './tradutor';

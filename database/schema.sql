@@ -1,3 +1,6 @@
+/* 
+  BANCO DE DADOS DO SISTEMA 
+*/
 CREATE TABLE perfis (
   id INTEGER PRIMARY KEY,
   nome VARCHAR(30) NOT NULL UNIQUE
@@ -51,7 +54,9 @@ CREATE TABLE atualizacoes (
   FOREIGN KEY (ocorrencia_id) REFERENCES ocorrencias(id),
   FOREIGN KEY (autor_id) REFERENCES usuarios(id)
 );
-
+/*
+  INSERÇÃO DE DADOS INICIAIS
+*/
 INSERT INTO perfis (id, nome) VALUES
   (1, 'MANUTENCAO_CCO'),
   (2, 'ATENDIMENTO_COMERCIAL'),

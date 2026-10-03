@@ -1,3 +1,4 @@
+//TIPOS DE DADOS E INTERFACES
 export type PerfilNome = 'MANUTENCAO_CCO' | 'ATENDIMENTO_COMERCIAL' | 'CLIENTE';
 export type StatusOcorrencia = 'ABERTA' | 'EM_ANDAMENTO' | 'RESOLVIDA';
 export type StatusVoo = 'NORMAL' | 'ATRASADO' | 'CANCELADO' | 'REACOMODADO';

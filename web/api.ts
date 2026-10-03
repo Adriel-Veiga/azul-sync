@@ -1,3 +1,4 @@
+/// API PARA O FRONT
 import type { Perfil, Sessao } from './tipos.js';
 
 const CHAVE_SESSAO = 'azul-sync-sessao';
@@ -52,7 +53,7 @@ interface Opcoes {
   metodo?: string;
   corpo?: unknown;
 }
-
+// faz a requisição para o servidor e retorna o JSON decodificado
 export async function api<T>(caminho: string, opcoes: Opcoes = {}): Promise<T> {
   const sessao = obterSessao();
   const cabecalhos = new Headers({ Accept: 'application/json' });

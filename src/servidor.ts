@@ -1,3 +1,4 @@
+//ROTAS, LOGIN E AUTENTICAÇÃO(SERVIDOR)
 import express from 'express';
 import path from 'node:path';
 import { randomBytes } from 'node:crypto';
@@ -12,7 +13,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 const sessoes = new Map<string, Sessao>();
-
+// Autenticação e autorização
 function autenticar(req: express.Request, res: express.Response, next: express.NextFunction): void {
   const token = req.header('Authorization')?.replace('Bearer ', '');
   const sessao = token ? sessoes.get(token) : undefined;
@@ -23,7 +24,7 @@ function autenticar(req: express.Request, res: express.Response, next: express.N
   res.locals.sessao = sessao;
   next();
 }
-
+// Função para exigir perfis específicos
 function exigirPerfil(...perfis: PerfilNome[]): express.RequestHandler {
   return (_req, res, next) => {
     const sessao = res.locals.sessao as Sessao;
@@ -34,7 +35,7 @@ function exigirPerfil(...perfis: PerfilNome[]): express.RequestHandler {
     next();
   };
 }
-
+// Rota de login
 app.post('/api/login', (req, res) => {
   const { email, senha } = (req.body ?? {}) as { email?: unknown; senha?: unknown };
   if (typeof email !== 'string' || typeof senha !== 'string') {
@@ -57,7 +58,7 @@ app.post('/api/login', (req, res) => {
   sessoes.set(token, { usuarioId: usuario.id, nome: usuario.nome, perfil: usuario.perfil });
   res.json({ token, nome: usuario.nome, perfil: usuario.perfil });
 });
-
+// Rota de logout
 const SELECT_OCORRENCIAS = `
   SELECT o.*, v.numero AS voo_numero, v.origem, v.destino, v.status AS voo_status
   FROM ocorrencias o JOIN voos v ON v.id = o.voo_id`;
@@ -69,7 +70,7 @@ type AtualizacaoComOcorrencia = {
   criada_em: string;
   autor: string;
 };
-
+// Rota para obter ocorrências
 app.get('/api/ocorrencias', autenticar, (_req, res) => {
   const sessao = res.locals.sessao as Sessao;
   const linhas = (
@@ -101,7 +102,7 @@ app.get('/api/atualizacoes', autenticar, exigirPerfil('MANUTENCAO_CCO', 'ATENDIM
   }
   res.json(atualizacoes);
 });
-
+// Rota para criar uma nova ocorrência
 app.post('/api/ocorrencias', autenticar, exigirPerfil('MANUTENCAO_CCO'), (req, res) => {
   const { vooId, tipo, detalheTecnico, recomendacaoOperacional } = (req.body ?? {}) as {
     vooId?: unknown;
@@ -129,7 +130,7 @@ app.post('/api/ocorrencias', autenticar, exigirPerfil('MANUTENCAO_CCO'), (req, r
 
   res.status(201).json({ id: Number(resultado.lastInsertRowid) });
 });
-
+// Rota para obter atualizações de uma ocorrência específica
 app.get(
   '/api/ocorrencias/:id/atualizacoes',
   autenticar,
@@ -176,7 +177,7 @@ app.post(
     res.status(201).json({ ok: true });
   }
 );
-
+// Inicia o servidor
 const PORTA = Number(process.env.PORT) || 3000;
 app.listen(PORTA, () => {
   console.log(`Azul Sync rodando em http://localhost:${PORTA}`);
